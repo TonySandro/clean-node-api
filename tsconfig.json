@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2019",
-    "module": "commonjs",
-    "rootDir": "./src",
+    "outDir": "./dist",
+    "strictNullChecks": false,
+    "module": "CommonJS",
+    "target": "ES2019",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true
+    "allowJs": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@presentation/*": ["presentation/*"]
+    }
   }
 }
