@@ -40,7 +40,7 @@ const makeSut = (): SutTypes => {
 
 const makeFakeRequest = (): HttpRequest => ({
     body: {
-        email: 'any_email@mail.com',
+        email: 'any_email@email.com',
         password: 'any_password'
     }
 })
@@ -69,7 +69,7 @@ describe('Login Controller', () => {
         const { sut } = makeSut()
         const httpRequest = {
             body: {
-                email: 'any_email@mail.com'
+                email: 'any_email@email.com'
             }
         }
         const httpResponse = await sut.handle(httpRequest)
@@ -81,7 +81,7 @@ describe('Login Controller', () => {
         const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid')
 
         await sut.handle(makeFakeRequest())
-        expect(isValidSpy).toHaveBeenCalledWith('any_email@mail.com')
+        expect(isValidSpy).toHaveBeenCalledWith('any_email@email.com')
     })
 
     test('Should return 500 if EmailValidator throws', async () => {
@@ -99,7 +99,7 @@ describe('Login Controller', () => {
         const isAuth = jest.spyOn(authenticationStub, 'auth')
 
         await sut.handle(makeFakeRequest())
-        expect(isAuth).toHaveBeenCalledWith('any_email@mail.com', 'any_password')
+        expect(isAuth).toHaveBeenCalledWith('any_email@email.com', 'any_password')
     })
 
     test('Should return 401 if an invalid credentials are provided', async () => {
