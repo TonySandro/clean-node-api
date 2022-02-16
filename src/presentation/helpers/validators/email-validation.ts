@@ -6,7 +6,7 @@ export class EmailValidation implements Validation {
     private readonly emailValidator: EmailValidator
     private readonly fieldName: string
 
-    constructor(fieldName: string, emailValidator: EmailValidator,) {
+    constructor(fieldName: string, emailValidator: EmailValidator) {
         this.emailValidator = emailValidator
         this.fieldName = fieldName
     }

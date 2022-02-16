@@ -24,6 +24,7 @@ const makeSut = (): SutTypes => {
         emailValidatorStub
     }
 }
+
 describe('Email Validation', () => {
     test('Should return an error if EmailValidator returns false', () => {
         const { sut, emailValidatorStub } = makeSut()

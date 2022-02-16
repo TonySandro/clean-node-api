@@ -15,10 +15,10 @@ export const anauthorized = (): HttpResponse => {
     }
 }
 
-export const serverError = (error?: Error): HttpResponse => {
+export const serverError = (error: Error): HttpResponse => {
     return {
         statusCode: 500,
-        body: new ServerError()
+        body: new ServerError(error.stack)
     }
 }
 

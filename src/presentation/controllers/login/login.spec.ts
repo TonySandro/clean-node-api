@@ -12,10 +12,17 @@ const makeEmailValidator = (): EmailValidator => {
     return new EmailValidatorStub()
 }
 
+const makeFakeRequest = (): HttpRequest => ({
+    body: {
+        email: 'any_email@email.com',
+        password: 'any_password'
+    }
+})
+
 const makeAuthentication = (): Authentication => {
     class AuthenticationStub implements Authentication {
         async auth(email: string, password: string): Promise<string> {
-            return 'any_token'
+            return new Promise(resolve => resolve('any_token'))
         }
     }
     return new AuthenticationStub()
@@ -37,13 +44,6 @@ const makeSut = (): SutTypes => {
         authenticationStub
     }
 }
-
-const makeFakeRequest = (): HttpRequest => ({
-    body: {
-        email: 'any_email@email.com',
-        password: 'any_password'
-    }
-})
 
 describe('Login Controller', () => {
     test('Should return 400 if no email is provided', async () => {
