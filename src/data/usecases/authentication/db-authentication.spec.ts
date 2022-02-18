@@ -1,26 +1,36 @@
 import { loadAccountByEmailRepository } from "data/protocols/load-account-by-email-repository"
+import { AuthenticationModel } from "domain/usecases/authentication"
 import { AccountModel } from "../add-account/db-add-account-protocols"
 import { DbAuthentication } from "./db-authentication"
 
-class LoadAccountByEmailRepositoryStub implements loadAccountByEmailRepository {
-    async load(email: string): Promise<AccountModel> {
-        const account: AccountModel = {
-            id: 'any_id',
-            name: 'any_name',
-            email: 'any_email@email.com',
-            password: 'any_password',
+const makeFakeAccount = (): AccountModel => ({
+    id: 'any_id',
+    name: 'any_name',
+    email: 'any_email@email.com',
+    password: 'any_password',
+})
+
+const makeFakeAuthentication = (): AuthenticationModel => ({
+    email: 'any_email@email.com',
+    password: 'any_password',
+})
+
+const makeLoadAccountByEmailRepository = (): loadAccountByEmailRepository => {
+    class LoadAccountByEmailRepositoryStub implements loadAccountByEmailRepository {
+        async load(email: string): Promise<AccountModel> {
+            return new Promise(resolve => resolve(makeFakeAccount()))
         }
-        return new Promise(resolve => resolve(account))
     }
+    return new LoadAccountByEmailRepositoryStub()
 }
 
 interface SutType {
     sut: DbAuthentication
-    loadAccountByEmailRepositoryStub: LoadAccountByEmailRepositoryStub
+    loadAccountByEmailRepositoryStub: loadAccountByEmailRepository
 }
 
 const makeSut = (): SutType => {
-    const loadAccountByEmailRepositoryStub = new LoadAccountByEmailRepositoryStub()
+    const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository()
     const sut = new DbAuthentication(loadAccountByEmailRepositoryStub)
     return {
         sut,
@@ -33,11 +43,7 @@ describe('DbAuthentication UseCase', () => {
         const { sut, loadAccountByEmailRepositoryStub } = makeSut()
         const loadSpy = jest.spyOn(loadAccountByEmailRepositoryStub, 'load')
 
-        sut.auth({
-            email: 'any_email@email.com',
-            password: 'any_password',
-        })
-
+        sut.auth(makeFakeAuthentication())
         expect(loadSpy).toHaveBeenCalledWith('any_email@email.com')
     })
 })
