@@ -1,4 +1,4 @@
-import { loadAccountByEmailRepository } from "data/protocols/load-account-by-email-repository"
+import { loadAccountByEmailRepository } from "data/protocols/db/load-account-by-email-repository"
 import { AuthenticationModel } from "domain/usecases/authentication"
 import { AccountModel } from "../add-account/db-add-account-protocols"
 import { DbAuthentication } from "./db-authentication"
