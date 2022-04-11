@@ -7,7 +7,7 @@
     "start": "sucrase-node src/main/server.ts",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "build": "rimraf dist && tsc",
-    "debug": "node --inspect=0.0.0.0:9222 --nolazy dist/mais/server.js",
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy dist/mais/server.js",
     "up": "npm run build && docker-compose up -d",
     "down": "docker-compose down",
     "test:verbose": "jest --passWithNoTests --runInBand",
@@ -46,6 +46,7 @@
     "fast-glob": "^3.2.11",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.3.1",
+    "nodemon": "^2.0.15",
     "validator": "^13.7.0"
   },
   "engines": {
